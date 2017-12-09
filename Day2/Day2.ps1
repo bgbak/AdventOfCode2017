@@ -1,5 +1,5 @@
 #Part 1
-$in = Get-content .\input.txt
+$in = Get-Content ($PSScriptRoot + "\input.txt")
 [array]$in = $in.Split("`n")
      
 $result = 0
@@ -17,22 +17,22 @@ foreach ($i in $in) {
 Write-Output "Part1:" $Result
 
 #Part 2
-
+$Part2Result = 0
 foreach ($i in $in) {
     $i = $i.Split("`t")
     $i = foreach($n in $i){
         [int]::Parse($n)
     }
 
-    for($n = 0; $n -lt ($i.Count - 1); $n++){
-        if($i[$n] % $i[$n + 1] -eq 0 ){
-            $Part2Result += $i[$n] / $i[$n + 1]
+    foreach($word in $i){
+            for($x = 0 ; $x -lt 16; $x++){
+                if(!($word -eq [int]$i[$x])){
+                if ($word % [int]$i[$x] -eq 0){
+                    $Part2Result += ($word / [int]$i[$x])
+                }
+            }
+            }
         }
     }
-    for($n = $i.Count -1 ; $n -gt 0; $n--){
-        if($i[$n] % $i[$n - 1] -eq 0 ){
-            $Part2Result += $i[$n] / $i[$n - 1]
-        }
-    }
-}
+
 Write-Output "Part2: " $Part2Result
